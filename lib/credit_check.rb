@@ -1,4 +1,23 @@
-card_number = "6011797668868728"
+require 'pry'
+
+class CreditCard
+  attr_reader :card_number, :limit
+
+  # initialize card_number and limit as strings
+  def initialize(card_number, limit)
+    @card_number = card_number
+    @limit = limit
+  end
+
+    def is_valid?
+      luhn(@card_number)
+    end
+
+    def last_four
+      @card_number[-4..-1]
+    end
+end
+
 
 # Luhn Algorithm
 def luhn(card_number)
@@ -30,13 +49,18 @@ def luhn(card_number)
   # Take total sum and check the validity of the card number
   total_sum = sum_over_10.sum
   if total_sum % 10 == 0
-    p "The number #{card_number} is valid!"
+    #p "The number #{card_number} is valid!"
+    true
   else
-    p "The number #{card_number} is invalid!"
+  #  p "The number #{card_number} is invalid!"
+    false
   end
 end
 
-luhn(card_number)
+binding.pry
+
+Sally = CreditCard.new('5541808923795240', 5000)
+Sally.is_valid?
 # Output
 ## If it is valid, print "The number [card number] is valid!"
 ## If it is invalid, print "The number [card number] is invalid!"
